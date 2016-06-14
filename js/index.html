@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/estilos.css">
+	<link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
+	<title>caja de mensajes</title>
+	<style>
+		* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+ 
+body {
+	background: #FAFAFA;
+	font-family: arial, helvetica, sans-serif;
+	font-size: 16px;
+}
+ 
+.wrap {
+	margin: auto;
+	max-width: 600px;
+	width: 90%;
+}
+ 
+.principal {
+	background: #c6ffb3;
+	border-top: 20px solid #c6ffb3;
+	color: #fff;
+	padding: 50px 0;
+	max-width: 600px;
+}
+ 
+.principal .formulario {
+	color: #212121;
+	text-align: center;
+}
+ 
+.principal .formulario input[type=text] {
+	margin-bottom: 20px;
+	padding: 10px;
+	width: 100%;
+}
+ 
+.principal .formulario input[type=text].error {
+	border: 5px solid #D32F2F;
+	color: #c6ffb3;
+}
+ 
+.principal .formulario .boton {
+	background: none;
+	border: 1px solid #D32F2F;
+	color: #fff;
+	display: inline-block;
+	font-size: 16px;
+	padding: 15px;
+}
+ 
+.principal .formulario .boton:hover {
+	border: 1px solid #fff;
+}
+ 
+/* - Tareas - */
+.tareas .lista {
+	list-style: none;
+}
+ 
+.tareas .lista li {
+	border-bottom: 1px solid #B6B6B6;
+}
+ 
+.tareas .lista li a {
+	color: #212121;
+	display: block;
+	padding: 20px 0;
+	text-decoration: none;
+}
+ 
+.tareas .lista li a:hover {
+	text-decoration: line-through;
+}
+li{
+	background-color: #c6ffb3;
+}
+	</style>
+
+</head>
+<body>
+ 
+	<div class="tareas">
+		<div class="wrap">
+			<ul class="lista" id="lista">
+				<li><a href="#">1 Lorem ipsum dolor sit amet.</a></li>
+				<li><a href="#">2 Lorem ipsum dolor sit amet.</a></li>
+				<li><a href="#">3 Lorem ipsum dolor sit amet.</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="principal">
+		<div class="wrap">
+			<form class="formulario" action="">
+				<input type="text" id="tareaInput" placeholder="Escribe tu mensaje">
+				<input type="button" class="boton" id="btn-agregar" value="Enviar">
+			</form>
+		</div>
+	</div>
+	<script >
+		(function(){
+	// Variables
+	var lista = document.getElementById("lista"),
+		tareaInput = document.getElementById("tareaInput"),
+		btnNuevaTarea = document.getElementById("btn-agregar");
+ 
+	// Funciones
+	var agregarTarea = function(){
+		var tarea = tareaInput.value,
+			nuevaTarea = document.createElement("li"),
+			enlace = document.createElement("a"),
+			contenido = document.createTextNode(tarea);
+ 
+		if (tarea === "") {
+			tareaInput.setAttribute("placeholder", "Agrega una tarea valida");
+			tareaInput.className = "error";
+			return false;
+		}
+ 
+		// Agregamos el contenido al enlace
+		enlace.appendChild(contenido);
+		// Le establecemos un atributo href
+		enlace.setAttribute("href", "#");
+		// Agrergamos el enlace (a) a la nueva tarea (li)
+		nuevaTarea.appendChild(enlace);
+		// Agregamos la nueva tarea a la lista
+		lista.appendChild(nuevaTarea);
+ 
+		tareaInput.value = "";
+ 
+		for (var i = 0; i <= lista.children.length -1; i++) {
+			lista.children[i].addEventListener("click", function(){
+				this.parentNode.removeChild(this);
+			});
+		}
+ 
+	};
+	var comprobarInput = function(){
+		tareaInput.className = "";
+		teareaInput.setAttribute("placeholder", "Agrega tu tarea");
+	};
+ 
+	var eleminarTarea = function(){
+		this.parentNode.removeChild(this);
+	};
+ 
+	// Eventos
+ 
+	// Agregar Tarea
+	btnNuevaTarea.addEventListener("click", agregarTarea);
+ 
+	// Comprobar Input
+	tareaInput.addEventListener("click", comprobarInput);
+ 
+	// Borrando Elementos de la lista
+	for (var i = 0; i <= lista.children.length -1; i++) {
+		lista.children[i].addEventListener("click", eleminarTarea);
+	}
+}());s
+	</script>
+</body>
+</html>
